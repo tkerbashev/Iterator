@@ -1,20 +1,19 @@
 ﻿namespace Iterator
 {
-    public class ProductIterator( Product[ , ] products ) : IProductIterator
+    public class ProductIterator( ProductCollection products ) : IProductIterator
     {
-        private readonly Product[ ,] _products = products;
         private int _currentRow, _currentColumn;
-        private readonly int _totalRows = products.GetLength( 0 ), _totalColumns = products.GetLength( 1 );
+        private readonly int _totalRows = products.Height, _totalColumns = products.Width;
 
         public bool IsFinished => _currentRow >= _totalRows;
 
-        public Product CurrentProduct => _products[ _currentRow, _currentColumn ];
+        public Product CurrentProduct => products.GetItem( _currentRow, _currentColumn );
 
         public Product First( )
         {
             _currentRow = 0;
             _currentColumn = 0;
-            return _products[ _currentRow, _currentColumn];
+            return CurrentProduct;
         }
 
         public Product? Next( )
